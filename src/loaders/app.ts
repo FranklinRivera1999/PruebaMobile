@@ -42,8 +42,9 @@ class Server {
 
     this.app.use(
       (err: any, req: Request, res: Response, next: NextFunction) => {
-        res.status(err.status || 500);
-        res.json({
+        res
+          .status(err.status || 500)
+          .json({
           errors: {
             message: err.message,
           },

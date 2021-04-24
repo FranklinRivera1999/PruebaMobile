@@ -1,12 +1,11 @@
-import {Request,Response,NextFunction} from 'express'
-import {Schema} from 'joi'
-const validationBody = (schema:Schema) => (req:Request, res:Response, next:NextFunction) => {
-    const { value, error } = schema.validate(req.body);
-    if (error) {
-      res.status(400).json(error)
-    }
-    req.body = value;
-    next();
-  };
-  
-  export default validationBody
+import { Request, Response } from "express";
+import { Schema } from "joi";
+const options = {
+  abortEarly: false, // include all errors
+  allowUnknown: false, // ignore unknown props
+  stripUnknown: false, // remove unknown props
+};
+
+export const validationBody = (schema: Schema, req: Request) => {
+  return schema.validate(req.body, options);
+};
