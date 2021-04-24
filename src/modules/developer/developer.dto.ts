@@ -5,5 +5,5 @@ export const developerDTO = joi.object({
     apellido: joi.string().required(),
     skills:joi.array().items(
         joi.string()
-    )
+    ).default([])
 })
