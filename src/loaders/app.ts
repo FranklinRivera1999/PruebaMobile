@@ -26,6 +26,7 @@ class Server {
     this.app.get("/", (req: Request, res: Response) => {
       return res.json({
         message: "REST API CRUD with mongoDB and Typescript",
+        code: `To see the complete code --> https://github.com/FranklinRivera1999/PruebaMobile.git`
       });
     });
     this.app.use("/api/developer", developerRoutes.default);
