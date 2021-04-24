@@ -68,7 +68,7 @@ export default class DeveloperController {
         return res.status(updated.err.code).json({error:updated.err.message})
       }
       return res.status(201).json({
-        message: `successfully removed developer with id ${req.params["developerId"]}`,
+        message: `successfully updated developer with id ${req.params["developerId"]}`,
       });
     } catch (error) {
       return res.status(500).json({error});
