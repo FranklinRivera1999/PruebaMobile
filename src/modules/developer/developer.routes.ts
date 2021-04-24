@@ -4,5 +4,5 @@ const router = Router();
 router.get("/", developerController.find);
 router.post("/", developerController.create);
 router.delete("/:id", developerController.delete);
-router.patch("/:id",developerController.update)
+router.patch("/:developerId",developerController.update)
 export default router;

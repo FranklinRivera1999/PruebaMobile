@@ -21,16 +21,21 @@ export default class DeveloperController {
     if (error) return res.status(400).json({ error });
     req.body = value;
     try {
+      let result = await developerService.validateSkills(req.body['skills'])
+      if(result && result.err){
+        return res.status(result.err.code).json(result.err.message)
+      }
       let developer = await developerService.create(
         req.body.nombre,
         req.body.apellido,
         req.body.skills
       );
+      
       return res.status(201).json({
         instance: developer,
       });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({error});
     }
   }
 
@@ -38,13 +43,13 @@ export default class DeveloperController {
     try {
       let deleted = await developerService.delete(req.params["id"]);
       if(deleted && deleted.err){
-        return res.status(deleted.err.code).json(deleted.err.message)
+        return res.status(deleted.err.code).json({error:deleted.err.message})
       }
       return res.status(200).json({
         message: `successfully removed developer with id ${req.params["id"]}`,
       });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({error});
     }
   }
 
@@ -54,19 +59,19 @@ export default class DeveloperController {
     req.body = value;
     try {
       let updated = await developerService.update(
-        req.params["id"],
+        req.params["developerId"],
         req.body.nombre,
         req.body.apellido,
         req.body.skills
       );
       if(updated && updated.err){
-        return res.status(updated.err.code).json(updated.err.message)
+        return res.status(updated.err.code).json({error:updated.err.message})
       }
       return res.status(201).json({
-        message: `successfully removed developer with id ${req.params["id"]}`,
+        message: `successfully removed developer with id ${req.params["developerId"]}`,
       });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({error});
     }
   }
 }
